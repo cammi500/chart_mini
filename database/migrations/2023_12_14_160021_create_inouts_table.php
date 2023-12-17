@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inout', function (Blueprint $table) {
+        Schema::create('inouts', function (Blueprint $table) {
             $table->id();
             $table->text('about');
-            $table-> date('date');
-            $table->enum('type',['in','out']);
-              $table->timestamps();
+            $table->date('date');
+            $table->enum('type', ['in','out']);
+            $table->string('type', 255); // Adjust the length as needed
+
+            $table->timestamps();
         });
     }
 
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inout');
+        Schema::dropIfExists('inouts');
     }
 };

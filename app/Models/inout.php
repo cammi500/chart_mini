@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class inout extends Model
+class Inout extends Model
 {
     use HasFactory;
-    protected $fillable = ['about','type','date'];
+    protected $fillable = ['about','date','type'];
 }
