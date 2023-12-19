@@ -15,9 +15,8 @@ return new class extends Migration
             $table->id();
             $table->text('about');
             $table->date('date');
-            $table->enum('type', ['in','out']);
-            $table->string('type', 255); // Adjust the length as needed
-
+            $table->double('amount');
+            $table->string('type', 50);
             $table->timestamps();
         });
     }

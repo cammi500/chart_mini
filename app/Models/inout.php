@@ -8,5 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Inout extends Model
 {
     use HasFactory;
-    protected $fillable = ['about','date','type'];
+    protected $fillable = ['about','date','type','amount'];
+    protected $rules = [
+    'amount' => 'required',
+    // other rules...
+];
 }

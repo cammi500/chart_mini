@@ -11,16 +11,19 @@
         <div class="row">
             <div class="col-12">
                 <div class="card card-body">
+
                     @if(session()->has('success'))
                     <div class="alert alert-success">{{session('success')}}</div>
                     @endif
+
                        <form action="" method="POST">
                         @csrf
                         <input type="text"  class="btn btn-dark text-white" name="about">
+                        <input type="text"  class="btn btn-dark text-white" name="amount">
                         <input type="date" class="btn btn-dark text-white" name="date">
                         <select name="type" id="" class="btn btn-dark">
-                            <option class="in">၀င်ငွေ</option>
-                            <option class="out">ထွက်ငွေ</option>
+                            <option value="in">၀င်ငွေ</option>
+                            <option value="out">ထွက်ငွေ</option>
                         </select>
                         <input type="submit" value="စာရင်းသွင်းငွေ" class="btn btn-success">
                        </form>
@@ -32,43 +35,36 @@
             <div class="col-6">
                 
                     <ul class="list-group">
+                        @foreach ($data as $d)
                         <li class="list-group-item d-flex justify-content-between">
                             <div class="">
-                                အမေမုန့်ဖိုးပေး <br>
-                                <small class="text-muted">1-2-2020</small>
+                                {{$d->about}} <br>
+                                <small class="text-muted">{{$d->date}}</small>
                             </div>
-                            <div class="text text-danger">
-                                -100 ကျပ်
-                            </div>
+
+                            @if($d->type=='in')
+                            <small class="text text-success">
+                                +{{$d->amount}} ကျပ်
+                            </small>
+                            @else
+                            <small class="text text-danger">
+                                -{{$d->amount}} ကျပ်
+                            </small>
+                            @endif
                         </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            <div class="">
-                                အမေမုန့်ဖိုးပေး <br>
-                                <small class="text-muted">1-2-2020</small>
-                            </div>
-                            <div class="text text-danger">
-                                -100 ကျပ်
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            <div class="">
-                                အမေမုန့်ဖိုးပေး <br>
-                                <small class="text-muted">1-2-2020</small>
-                            </div>
-                            <div class="text text-danger">
-                                -100 ကျပ်
-                            </div>
-                        </li>
+                        @endforeach
+                        
+                        
                     </ul>
                 
             </div>
             <div class="col-6">
                 <div class="card card-body mt-3">
                     <div class="d-flex justify-content-between">
-                        <h5>Chart</h5>
+                        <h5>Today Chart</h5>
                         <div class="">
-                            <small class="text-success">၀င်ငွေ +၂၀၀၀</small>
-                            <small class="text-success">ထွက်ငွေ -၂၀၀၀</small>
+                            <small class="text-success">၀င်ငွေ +{{$total_income}}</small>
+                            <small class="text-success">ထွက်ငွေ -{{$total_outcome}}</small>
                         </div>
                     </div>
                     <hr class="p-0 m-0">
@@ -88,17 +84,17 @@
 new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    labels: @json($day_arr),
     datasets: [
         {
-      label: '၀◌င်ငွေ',
-      data: [12, 19, 3, 5, 2, 3],
+      label: '၀င်ငွေ',
+      data: @json($income_amount),
       borderWidth: 1,
       backgroundColor :'#2DCE89'
     },
     {
       label: 'ထွက်ငွေ',
-      data: [16, 19, 3, 5, 12, 20],
+      data: @json($outcome_amount),
       borderWidth: 1,
       backgroundColor :'#F5365C'
     }
